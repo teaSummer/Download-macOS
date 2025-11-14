@@ -86,3 +86,11 @@ jobs:
         with:
           name: macOS ${{ env.installer_name }}
           path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
+
+      # Upload Artifacts
+      - name: Upload Artifacts to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2
+        with:
+          target: ./build/*
+          credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
+          parent_folder_id: 1PJXUGwKkyeSEG0BpN2hHyCNnURv86AA0
