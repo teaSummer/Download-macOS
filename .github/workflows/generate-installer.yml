@@ -87,6 +87,12 @@ jobs:
           name: macOS ${{ env.installer_name }}
           path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
 
+  artifact:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
       # Upload Artifacts
       - name: Upload Artifacts to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
