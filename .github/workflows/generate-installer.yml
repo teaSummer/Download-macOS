@@ -89,7 +89,7 @@ jobs:
 
       # Upload Artifacts
       - name: Upload Artifacts to Google Drive
-        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
         with:
           target: ./build/*
           credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
