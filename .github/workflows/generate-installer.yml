@@ -80,23 +80,10 @@ jobs:
           zip -r 'Install macOS ${{ env.installer_name }}.zip' 'Install macOS ${{ env.installer_name }}.app'
           mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/'${{ env.installer_name }}.zip'
 
-      # Upload Installer
-      - name: Upload ${{ github.event.inputs.file }}
-        uses: actions/upload-artifact@v4
+      # Upload Files
+      - name: Upload a file to Google Drive
+        uses: willo32/google-drive-upload-action@v1
         with:
-          name: macOS ${{ env.installer_name }}
-          path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
-
-  artifact:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-
-      # Upload Artifacts
-      - name: Upload Artifacts to Google Drive
-        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
-        with:
-          target: ./build/*
+          target: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
           credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1PJXUGwKkyeSEG0BpN2hHyCNnURv86AA0
