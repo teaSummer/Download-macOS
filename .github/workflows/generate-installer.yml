@@ -82,7 +82,7 @@ jobs:
 
       # Upload Files
       - name: Upload a file to Google Drive
-        uses: willo32/google-drive-upload-action@v1
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
         with:
           target: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
           credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
