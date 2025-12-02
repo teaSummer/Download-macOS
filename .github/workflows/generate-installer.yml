@@ -80,10 +80,16 @@ jobs:
           zip -r 'Install macOS ${{ env.installer_name }}.zip' 'Install macOS ${{ env.installer_name }}.app'
           mv -v 'Install macOS ${{ env.installer_name }}.zip' ~/Desktop/'${{ env.installer_name }}.zip'
 
-      # Upload Files
-      - name: Upload a file to Google Drive
-        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v2.3.1
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
         with:
-          target: "/Users/runner/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
-          credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
-          parent_folder_id: 1PJXUGwKkyeSEG0BpN2hHyCNnURv86AA0
+          name: Build ${{ github.sha }}
+          tag_name: 'build-${{ github.sha }}'
+
+      - name: Upload Packaged Release for ${{ matrix.folder }}
+        uses: xresloader/upload-to-github-release@v1
+        with:
+          file: ~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}
+          release_id: ${{ steps.create_release.outputs.id }}
+          overwrite: true
